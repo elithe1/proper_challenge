@@ -10,7 +10,12 @@ import TenancyCard from "./components/TenancyCard";
 
 import * as PortfolioService from "./services/PortfolioService";
 import Typography from "@material-ui/core/Typography";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
+import strings from "./strings";
 const useStyles = makeStyles({
   fab: {
     position: "absolute",
@@ -23,6 +28,11 @@ const useStyles = makeStyles({
     top: "50%",
     left: "50%",
   },
+  languageSelector: {
+    position: "absolute",
+    right: 0,
+    margin: "25px",
+  },
 });
 
 function App() {
@@ -33,6 +43,8 @@ function App() {
   let [showLoader, setShowLoader] = useState(true);
   let [showAlert, setShowAlert] = useState(false);
 
+  let [language, setLanguage] = useState("english");
+  strings.setLanguage(language);
   useEffect(() => {
     retrievePortfolio();
   }, []);
@@ -81,12 +93,23 @@ function App() {
       });
   };
 
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
+  };
+
   return (
     <div>
+      <FormControl className={classes.languageSelector}>
+        <InputLabel>{strings.lang}</InputLabel>
+        <Select value={language} onChange={handleLanguageChange}>
+          <MenuItem value="english">English</MenuItem>
+          <MenuItem value="danish">Dansk</MenuItem>
+        </Select>
+      </FormControl>
       <Typography variant="h2">Proper Portfolio</Typography>
       {showAlert && (
         <Alert variant="filled" severity="error" className={classes.alert}>
-          Wrong address, please try again
+          {strings.error404}
         </Alert>
       )}
       {tenancies

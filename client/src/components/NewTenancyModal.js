@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
+import strings from "../strings";
+
 const useStyles = makeStyles({
   buttonProgress: {
     color: "blue",
@@ -29,23 +31,21 @@ function NewTenantModal(props) {
 
   return (
     <Dialog open={props.modalIsOpen} onClose={props.handleClose}>
-      <DialogTitle>Add new Tenancy</DialogTitle>
+      <DialogTitle>{strings.addTitle}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          To add a new tenancy please provide us with the tenancy address
-        </DialogContentText>
+        <DialogContentText>{strings.addSubtitle}</DialogContentText>
         <TextField
           autoFocus
           margin="dense"
           id="street"
-          label="Street name"
+          label={strings.streetName}
           fullWidth
           onChange={(e) => setStreetName(e.target.value)}
         />
         <TextField
           margin="dense"
           id="streetNumber"
-          label="House number"
+          label={strings.houseNum}
           fullWidth
           type="number"
           onChange={(e) => setStreetNumber(parseInt(e.target.value))}
@@ -53,7 +53,7 @@ function NewTenantModal(props) {
         <TextField
           margin="dense"
           id="apartmentNumber"
-          label="Apartment number"
+          label={strings.apNum}
           fullWidth
           type="number"
           onChange={(e) => setApartmentNumber(parseInt(e.target.value))}
@@ -61,7 +61,7 @@ function NewTenantModal(props) {
         <TextField
           margin="dense"
           id="postNumber"
-          label="Post Number"
+          label={strings.postNum}
           fullWidth
           type="number"
           onChange={(e) => setPostNumber(parseInt(e.target.value))}
@@ -69,7 +69,7 @@ function NewTenantModal(props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="primary">
-          Cancel
+          {strings.cancel}
         </Button>
         <Button
           onClick={() =>
@@ -83,7 +83,7 @@ function NewTenantModal(props) {
           color="primary"
           disabled={props.showLoader}
         >
-          Add
+          {strings.add}
           {props.showLoader && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}

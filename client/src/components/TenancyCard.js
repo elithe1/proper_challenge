@@ -4,6 +4,8 @@ import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import strings from "../strings";
+
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useStyles = makeStyles({
@@ -33,16 +35,16 @@ function TenancyCard(props) {
     <Card className={classes.root}>
       <div className={classes.div}>
         <Typography variant="body1">
-          Street name: {props.tenancy.streetName}
+          {strings.streetName}: {props.tenancy.streetName}
         </Typography>
         <Typography variant="body1">
-          House number: {props.tenancy.streetNumber}
+          {strings.houseNum}: {props.tenancy.streetNumber}
         </Typography>
         <Typography variant="body1">
-          Apartment number: {props.tenancy.apartmentNumber}
+          {strings.apNum}: {props.tenancy.apartmentNumber}
         </Typography>
         <Typography variant="body1">
-          Post number: {props.tenancy.postNumber}
+          {strings.postNum}: {props.tenancy.postNumber}
         </Typography>
 
         <Chip
@@ -50,7 +52,7 @@ function TenancyCard(props) {
           clickable
           variant="outlined"
           size="small"
-          label="Remove"
+          label={strings.rm}
           icon={<DeleteIcon />}
           onClick={() => {
             props.handleRemove(props.tenancy.id);
