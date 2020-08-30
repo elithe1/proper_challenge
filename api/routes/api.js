@@ -1,24 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const { v4: uuidv4 } = require("uuid");
 const AddressVerifier = require("../services/AddressVerifier");
+const db = require("../db/db");
 
-router.get("/", function (req, res, next) {
-  res.send();
+router.get("/", async function (req, res, next) {
+  res.send(await db.findAll());
 });
 
 router.post("/", async function (req, res, next) {
   let newAddress = req.body;
-  console.log(newAddress);
   let foundAddresses = await AddressVerifier.verifyAddress(newAddress);
   if (!foundAddresses.length) {
     res.sendStatus(404);
     return;
   }
-  res.send({ id: uuidv4() });
+  let newTenancy = await db.create(newAddress);
+  res.send({ id: newTenancy.toJSON().id });
 });
 
-router.delete("/:id", function (req, res, next) {
+router.delete("/:id", async function (req, res, next) {
+  let tenancyId = req.params.id;
+  await db.delete(tenancyId);
   res.sendStatus(200);
 });
 
